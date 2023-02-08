@@ -6,11 +6,19 @@ namespace RpgAdventure
 {
     public class PlayerController : MonoBehaviour
     {
+        public static PlayerController Instance
+        {
+            get
+            {
+                return s_Instance;
+            }
+        }
         #region Fields
 
         public float speed;
         public float rotationSpeed;
 
+        private static PlayerController s_Instance;
         private PlayerInput m_PlayerInput;
         private CharacterController m_ChController;
         private Camera m_MainCamera;
@@ -24,6 +32,10 @@ namespace RpgAdventure
             m_ChController = GetComponent<CharacterController>();
             m_PlayerInput = GetComponent<PlayerInput>();
             m_MainCamera = Camera.main;
+
+
+
+            s_Instance= this;
         }
 
         // Update is called once per frame
