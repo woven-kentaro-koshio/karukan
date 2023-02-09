@@ -326,7 +326,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 538310421}
-  m_LocalRotation: {x: 0.14160699, y: -0.000000037122554, z: 0.0000000053103246, w: 0.98992294}
+  m_LocalRotation: {x: 0.14160699, y: -0.00000003712255, z: 0.0000000053103246, w: 0.98992294}
   m_LocalPosition: {x: -0.11, y: 5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -443,6 +443,18 @@ PrefabInstance:
       propertyPath: detectionAngle
       value: 360
       objectReference: {fileID: 0}
+    - target: {fileID: 4608589535564425041, guid: bc973f0c381d8c849904b42bc5cd9899, type: 3}
+      propertyPath: detectionRadius
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4608589535564425041, guid: bc973f0c381d8c849904b42bc5cd9899, type: 3}
+      propertyPath: timeToStopPursuit
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4608589535564425041, guid: bc973f0c381d8c849904b42bc5cd9899, type: 3}
+      propertyPath: playerScanner.detectionAngle
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 7397132715507054910, guid: bc973f0c381d8c849904b42bc5cd9899, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -490,6 +502,18 @@ PrefabInstance:
     - target: {fileID: 7400413233746628310, guid: bc973f0c381d8c849904b42bc5cd9899, type: 3}
       propertyPath: m_Name
       value: Bandit
+      objectReference: {fileID: 0}
+    - target: {fileID: 7486170033970562200, guid: bc973f0c381d8c849904b42bc5cd9899, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 6dce11a251506b841940c07888b365e3, type: 2}
+    - target: {fileID: 7486170033970562200, guid: bc973f0c381d8c849904b42bc5cd9899, type: 3}
+      propertyPath: m_UpdateMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7486170033970562200, guid: bc973f0c381d8c849904b42bc5cd9899, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc973f0c381d8c849904b42bc5cd9899, type: 3}
@@ -584,7 +608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18b7b90c5afab754f91339a55a4fe2b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
+  speed: 10
   rotationSpeed: 5
 --- !u!143 &804016832
 CharacterController:
@@ -759,7 +783,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 5
-  m_Acceleration: 8
+  m_Acceleration: 500
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
@@ -770,6 +794,18 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1084671452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1084671442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4954f68d9eea1c145bc4fb24e3e544c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1152720763
 GameObject:
   m_ObjectHideFlags: 3
@@ -1048,7 +1084,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1387098339}
-  m_LocalRotation: {x: 0.15958974, y: 0.0000000047158593, z: -7.623735e-10, w: 0.98718345}
+  m_LocalRotation: {x: 0.15958974, y: -0.000000020584826, z: 0.0000000033277776, w: 0.98718345}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1253,7 +1289,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1417868758}
-  m_LocalRotation: {x: 0.14160699, y: -0.000000017032995, z: 0.0000000024365436, w: 0.989923}
+  m_LocalRotation: {x: 0.14160699, y: -0.000000017032992, z: 0.0000000024365434, w: 0.989923}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
