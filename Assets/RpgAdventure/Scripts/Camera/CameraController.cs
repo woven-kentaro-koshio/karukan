@@ -8,6 +8,14 @@ namespace RpgAdventure
         [SerializeField]
         CinemachineFreeLook freeLookCamera;
 
+        public CinemachineFreeLook PlayerCam
+        {
+            get
+            {
+                return freeLookCamera;
+            }
+        }
+
         // Update is called once per frame
         void Update()
         {
