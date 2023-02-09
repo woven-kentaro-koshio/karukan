@@ -6,6 +6,13 @@ namespace RpgAdventure
 {
     public class PlayerController : MonoBehaviour
     {
+        public static PlayerController Instance
+        {
+            get
+            {
+                return s_Instance;
+            }
+        }
         #region Fields
 
         const float k_Acceleration = 20.0f;
@@ -17,6 +24,7 @@ namespace RpgAdventure
         public float minRotationSpeed = 800;
         public float gravity = 20.0f;
 
+        private static PlayerController s_Instance;
         private PlayerInput m_PlayerInput;
         private CharacterController m_ChController;
         private Animator m_Animator;
@@ -38,6 +46,8 @@ namespace RpgAdventure
         {
             m_ChController = GetComponent<CharacterController>();
             m_PlayerInput = GetComponent<PlayerInput>();
+            m_MainCamera = Camera.main;
+            s_Instance= this;
             m_Animator = GetComponent<Animator>();
             m_CameraController = Camera.main.GetComponent<CameraController>();
         }
