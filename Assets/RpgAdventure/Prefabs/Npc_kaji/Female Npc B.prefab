@@ -368,7 +368,7 @@ GameObject:
   - component: {fileID: 95735082086840126}
   - component: {fileID: 114064419799455960}
   m_Layer: 0
-  m_Name: Female C
+  m_Name: Female Npc B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
