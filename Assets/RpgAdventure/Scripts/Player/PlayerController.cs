@@ -46,7 +46,6 @@ namespace RpgAdventure
         {
             m_ChController = GetComponent<CharacterController>();
             m_PlayerInput = GetComponent<PlayerInput>();
-            m_MainCamera = Camera.main;
             s_Instance= this;
             m_Animator = GetComponent<Animator>();
             m_CameraController = Camera.main.GetComponent<CameraController>();
