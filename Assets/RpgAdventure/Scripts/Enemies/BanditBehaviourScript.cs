@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -5,21 +6,28 @@ namespace RpgAdventure
  {
     public class BanditBehaviourScript : MonoBehaviour
     {
-        public float detectionRadius = 10.0f;
-        public float detectionAngle = 90.0f;
+        public PlayerScanner playerScanner;
         public float timeToStopPursuit = 2.0f;
+        public float timeToWaitOnPursuit = 2.0f;
 
         private PlayerController m_Target;
-        private NavMeshAgent m_NavMestAgent;
+        private EnemyController m_EnemyController;
+        private Animator m_Animator;
         private float m_TimeSinceLostTarget = 0;
+        private Vector3 m_OriginPosition;
+
+        private readonly int m_HashInPursuit = Animator.StringToHash("InPursuit");
+        private readonly int m_HashNearBase = Animator.StringToHash("NearBase");
         private void Awake()
         {
-            m_NavMestAgent= GetComponent<NavMeshAgent>();
+            m_EnemyController = GetComponent<EnemyController>();
+            m_Animator= GetComponent<Animator>();
+            m_OriginPosition = transform.position;
         }
 
         private void Update()
         {
-            var target = LookforPlayer();
+            var target = playerScanner.Detect(transform);
 
             if (m_Target == null)
             {
@@ -30,50 +38,36 @@ namespace RpgAdventure
             }
             else
             {
-                m_NavMestAgent.SetDestination(m_Target.transform.position);
+                m_EnemyController.SetFollowTarget(m_Target.transform.position);
+                m_Animator.SetBool(m_HashInPursuit, true);
 
                 if (target == null)
                 {
                     m_TimeSinceLostTarget += Time.deltaTime;
 
-                    if(m_TimeSinceLostTarget >= timeToStopPursuit)
+                    if (m_TimeSinceLostTarget >= timeToStopPursuit)
                     {
                         m_Target = null;
-                    }
-                    else
-                    {
-                        m_TimeSinceLostTarget = 0;
+                        m_Animator.SetBool(m_HashInPursuit, false);
+                        StartCoroutine(waitOnPursuit());
                     }
                 }
+                else
+                {
+                    m_TimeSinceLostTarget = 0;
+                }   
             }
+            Vector3 toBase = m_OriginPosition - transform.position;
+            toBase.y = 0;
 
-           
-
-           
-
+            m_Animator.SetBool(m_HashNearBase, toBase.magnitude < 0.01f);
         }
 
-        private PlayerController LookforPlayer()
+
+        private IEnumerator waitOnPursuit()
         {
-                if (PlayerController.Instance == null)
-                {
-                    return null;
-                }
-            
-            Vector3 enemyPosition = transform.position;
-            Vector3 toplayer = PlayerController.Instance.transform.position - enemyPosition;
-            toplayer.y = 0;
-
-            if (toplayer.magnitude <= detectionRadius) 
-            {
-                if(Vector3.Dot(toplayer.normalized, transform.forward) >
-                   Mathf.Cos(detectionAngle * 0.5f * Mathf.Deg2Rad))
-                {
-                    return PlayerController.Instance;
-                }
-            }
-
-            return null;
+            yield return new WaitForSeconds(timeToWaitOnPursuit);
+            m_EnemyController.SetFollowTarget(m_OriginPosition);
         }
 
 #if UNITY_EDITOR
@@ -83,11 +77,13 @@ namespace RpgAdventure
             UnityEditor.Handles.color = c;
 
             Vector3 rotatedforward = Quaternion.Euler(
-                0, -detectionAngle * 0.5f, 0) * transform.forward;
+                0, -playerScanner.detectionAngle * 0.5f, 0) * transform.forward;
 
             UnityEditor.Handles.DrawSolidArc(
                 transform.position, 
-                Vector3.up, rotatedforward, detectionAngle, detectionRadius);
+                Vector3.up, rotatedforward, 
+                playerScanner.detectionAngle, 
+                playerScanner.detectionRadius);
         }
 #endif
 
