@@ -23,6 +23,7 @@ namespace RpgAdventure
         public float maxRotationSpeed = 1200;
         public float minRotationSpeed = 800;
         public float gravity = 20.0f;
+        public float rayDistance = 5.0f;
 
         private static PlayerController s_Instance;
         private PlayerInput m_PlayerInput;
@@ -73,6 +74,17 @@ namespace RpgAdventure
             Vector3 movement = m_Animator.deltaPosition;
             movement += m_VerticalSpeed * Vector3.up * Time.fixedDeltaTime;
             m_ChController.Move(movement);
+
+            // check if player falling by using raycast
+            Vector3 rayStartPosition = transform.position + Vector3.up * 1.0f;
+            if (Physics.Raycast(rayStartPosition, Vector3.down, rayDistance))
+            {
+                m_Animator.SetBool("IsOnFloor", true);
+            } else
+            {
+                m_Animator.SetBool("IsOnFloor", false);
+            }
+            // Debug.DrawRay(rayStartPosition, Vector3.down * rayDistance, Color.red);
         }
 
         #endregion
